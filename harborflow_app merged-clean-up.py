@@ -64,29 +64,40 @@ def check_van_capacity(van_capacity, parcel_weights):
             accepted_rejected_status.append(False)
     return accepted_rejected_status #an array of Trues and Falses    
 
-#Validation input >=0
-def non_negative_input(prompt):
+#Validation float input >=0
+def non_negative_float(prompt):
     while True:
         try:
             value = float(input(prompt))
             if value >= 0:
                 return value
-            print ("Invalid input. Please enter 0 or greater.")
+            print ("Error - Value must be greater than zero or 0.")
         except ValueError:
-            print ("Invalid input. Please enter 0 or greater.")
+            print ("Error - Value must be greater than zero or 0.")
 
-            #Validation input >0
+#Validation integer input >=0:
+def non_negative_integer(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            if value >= 0:
+                return value
+            print("Error - Value must be an integer greater than zero or 0. ")
+        except ValueError:
+            print("Error - Value must be an integer greater than zero or 0. ")
+
+#Validation input >0
 def positive_input(prompt):
     while True:
         try:
             value = float(input(prompt))
             if value > 0:
                 return value
-            print("Invalid input. Please enter value greater than 0. ")
+            print("Error - Value must be greater than zero. ")
         except ValueError:
-            print("Invalid input. Please enter value greater than 0. ")
+            print("Error - Value must be greater than zero. ")
 
-            #task 6
+#task 6
 def classify_service_performance(promised_minutes, actual_minutes, damaged_parcels):
     delay = actual_minutes - promised_minutes
     print(f"Delay: {delay:.0f} minutes")
@@ -239,22 +250,15 @@ def main():
 
         elif selected_service == 6:
         #Task 6: Classify service performance
-            promised_minutes = non_negative_input("Promised minutes: ")
-            actual_minutes = non_negative_input("Actual minutes: ")
-            damaged_parcels = non_negative_input("Damaged parcels: ")
+            promised_minutes = non_negative_float("Promised minutes: ")
+            actual_minutes = non_negative_float("Actual minutes: ")
+            damaged_parcels = non_negative_integer("Damaged parcels: ")
             print(f"Service status: {classify_service_performance(promised_minutes, actual_minutes, damaged_parcels)}")
 
 
         elif selected_service == 7:
             #Task 7: Produce the weekly dispatch report          
-            while True:
-                try:
-                    target_daily = int(input("Daily target: ")) #match CodeGrade rquired input
-                    if target_daily >= 0:
-                        break
-                    print("Target must be 0 or greater. Please try again.")
-                except ValueError:
-                    print("Invalid input. Please enter a whole number.")
+            target_daily = non_negative_integer("Enter daily target: ")
 
            #validate Deliveries (Loops until exactly 7 values are given)
             while True:
